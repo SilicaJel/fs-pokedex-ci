@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "description": "Full Stack Open",
   "main": "src/index.js",
-"scripts": {
-"start": "node app.js",
-"dev": "webpack-dev-server --open --mode development --port 8080",
-"start-prod": "node app.js",
-"test": "jest",
-"eslint": "eslint . --ext .js,.jsx",
-"build": "webpack --mode production"
-},
+  "scripts": {
+    "start": "node app.js",
+    "dev": "webpack-dev-server --open --mode development --port 8080",
+    "start-prod": "node app.js",
+    "test": "jest",
+    "test:e2e": "playwright test",
+    "eslint": "eslint . --ext .js,.jsx",
+    "build": "webpack --mode production"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/smartlyio/fullstackopen-cicd.git"
@@ -33,13 +34,20 @@
   },
   "jest": {
     "testEnvironment": "jsdom",
-    "setupFiles": ["<rootDir>/jest.setup.js"]
+    "setupFiles": [
+      "<rootDir>/jest.setup.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/e2e-tests/"
+    ]
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
     "@babel/plugin-transform-runtime": "^7.29.0",
     "@babel/preset-env": "^7.29.0",
     "@babel/preset-react": "^7.28.5",
+    "@playwright/test": "^1.60.0",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "babel-jest": "^30.3.0",

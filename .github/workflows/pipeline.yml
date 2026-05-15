@@ -1,66 +1,38 @@
 name: Deployment pipeline
+
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
-    types: [opened, synchronize]
+    branches:
+      - main
 
 jobs:
   simple_deployment_pipeline:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js
-        uses: actions/setup-node@v4
+
+      - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
+
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
       - name: Check style
         run: npm run eslint
-      - name: Run tests
+
+      - name: Run unit tests
         run: npm test
-      - name: Build
+
+      - name: Build app
         run: npm run build
 
-  deploy:
-    needs: simple_deployment_pipeline
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Trigger Render deployment
-        run: curl -X POST "$RENDER_DEPLOY_HOOK_URL"
-        env:
-          RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
 
-  discord_success:
-    needs: [deploy]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Discord Success
-        uses: Ilshidur/action-discord@master
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        with:
-          args: |
-            🚀 Deployment successful!
-            App: https://fs-pokedex-ci.onrender.com
-            Commit: ${{ github.sha }}
-            By: ${{ github.actor }}
-
-  discord_failure:
-    needs: simple_deployment_pipeline
-    if: failure()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Discord Failure
-        uses: Ilshidur/action-discord@master
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        with:
-          args: |
-            ❌ Build failed!
-            Commit: ${{ github.sha }}
-            By: ${{ github.actor }}
+      - name: Run end-to-end tests
+        run: npm run test:e2e
