@@ -5,12 +5,12 @@ module.exports = defineConfig({
   timeout: 30000,
   use: {
     baseURL: 'http://127.0.0.1:8080',
-    headless: true
+    headless: true,
   },
   webServer: {
-    command: 'npm run dev',
-    port: 8080,
+    command: 'npm run start',
+    url: 'http://127.0.0.1:8080',
     reuseExistingServer: !process.env.CI,
-    timeout: 120000
-  }
+    timeout: 120000,
+  },
 })
