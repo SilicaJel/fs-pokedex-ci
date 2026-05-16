@@ -27,6 +27,7 @@ jobs:
       - name: Run e2e tests
         working-directory: ./
         run: npm run test:e2e
+        timeout-minutes: 10
 
       - name: Trigger Render Deployment
         if: ${{ github.event_name == 'push' }}

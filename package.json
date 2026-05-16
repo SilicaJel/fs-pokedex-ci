@@ -4,10 +4,10 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --port 8080 --hot false --open false",
+    "start": "webpack serve --mode development --port 8080 --hot false --open false",
+    "build": "webpack --mode production",
     "test": "jest",
     "eslint": "eslint . --ext .js,.jsx",
-    "build": "webpack --mode production",
     "test:e2e": "playwright test"
   },
   "dependencies": {
