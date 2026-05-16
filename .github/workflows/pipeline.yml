@@ -17,21 +17,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        working-directory: ./
         run: npm install
 
-      - name: Run tests
-        working-directory: ./
+      - name: Run unit tests
         run: npm test
 
       - name: Run e2e tests
-        working-directory: ./
         run: npm run test:e2e
-        timeout-minutes: 10
 
       - name: Trigger Render Deployment
         if: ${{ github.event_name == 'push' }}
-        working-directory: ./
         run: curl ${{ vars.RENDER_DEPLOY_HOOK }}
 
   tag_release:
