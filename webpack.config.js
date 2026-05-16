@@ -1,53 +1,45 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
-  entry: "./src/index.jsx",
+  entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/'
+    clean: true
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-        },
+        use: 'babel-loader'
       },
       {
         test: /\.html$/,
-        use: [
-          {
-            loader: "html-loader",
-          },
-        ],
+        use: 'html-loader'
       },
       {
         test: /\.css$/,
-        use: [
-          {
-            loader: "style-loader",
-          },
-          {
-            loader: "css-loader",
-          },
-        ],
+        use: ['style-loader', 'css-loader']
       }
-    ],
+    ]
   },
   resolve: {
-    extensions: ["*", ".js", ".jsx"],
-  },
-  devServer: {
-    historyApiFallback: true,
+    extensions: ['.js', '.jsx']
   },
   plugins: [
-    new HtmlWebPackPlugin({
-      template: "./public/index.html",
-      filename: "./index.html",
+    new HtmlWebpackPlugin({
+      template: './public/index.html'
     }),
+    new ESLintPlugin({
+      extensions: ['js', 'jsx']
+    })
   ],
+  devServer: {
+    static: './dist',
+    hot: false,
+    port: 8080
+  }
 };
