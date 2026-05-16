@@ -15,7 +15,7 @@ module.exports = defineConfig({
   },
 
   webServer: {
-    command: 'npm start',
+    command: 'npm run build && node app.js',
     url: 'http://localhost:8080',
     reuseExistingServer: !process.env.CI,
     timeout: 120000,
