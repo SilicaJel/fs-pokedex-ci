@@ -10,9 +10,9 @@ app.get('/health', (req, res) => {
 // Serve static frontend files
 app.use(express.static('dist'))
 
-// Fallback for React Router (important!)
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
+// React Router fallback (Express 5 safe version)
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'))
 })
 
 const PORT = process.env.PORT || 10000
