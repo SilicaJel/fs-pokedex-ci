@@ -10,8 +10,8 @@ app.get('/health', (req, res) => {
 // Serve static files
 app.use(express.static('dist'))
 
-// React Router fallback (Express 5 safe)
-app.get('/*', (req, res) => {
+// Safe fallback for React Router (no path-to-regexp)
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'))
 })
 
