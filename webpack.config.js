@@ -42,10 +42,12 @@ module.exports = {
     extensions: ["*", ".js", ".jsx"],
   },
   devServer: {
+    static: './dist',
     historyApiFallback: true,
-    host: '127.0.0.1',
+    host: 'localhost',
     port: 8080,
     hot: false,
+    allowedHosts: 'all',
   },
   plugins: [
     new HtmlWebPackPlugin({
