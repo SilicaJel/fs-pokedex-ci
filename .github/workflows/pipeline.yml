@@ -16,22 +16,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
       - name: Install dependencies
+        working-directory: ./fs-pokedex-ci
         run: npm install
 
       - name: Run tests
+        working-directory: ./fs-pokedex-ci
         run: npm test
 
       - name: Run e2e tests
+        working-directory: ./fs-pokedex-ci
         run: npm run test:e2e
 
       - name: Trigger Render Deployment
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
+        working-directory: ./fs-pokedex-ci
         run: curl ${{ vars.RENDER_DEPLOY_HOOK }}
 
   tag_release:
