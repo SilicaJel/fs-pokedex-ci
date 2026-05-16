@@ -3,7 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  mode: 'development',
+  entry: "./src/index.jsx",
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
@@ -30,10 +31,12 @@ module.exports = {
     extensions: ["*", ".js", ".jsx"],
   },
   devServer: {
+    static: './dist',
     historyApiFallback: true,
-    host: '127.0.0.1',
+    host: 'localhost',
     port: 8080,
     hot: false,
+    allowedHosts: 'all',
   },
   plugins: [
     new HtmlWebpackPlugin({

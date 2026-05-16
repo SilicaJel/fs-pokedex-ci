@@ -9,16 +9,18 @@ module.exports = defineConfig({
   reporter: 'html',
   timeout: 30000,
   use: {
-    baseURL: 'http://127.0.0.1:8080',
+    baseURL: 'http://localhost:8080',
     headless: true,
     trace: 'on-first-retry',
   },
 
   webServer: {
-    command: 'npm run build && npm start',
-    url: 'http://127.0.0.1:8080',
+    command: 'npm run build && node app.js',
+    url: 'http://localhost:8080',
     reuseExistingServer: !process.env.CI,
     timeout: 120000,
+    stdout: 'ignore',
+    stderr: 'pipe',
   },
 
   projects: [
