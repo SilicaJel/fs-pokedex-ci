@@ -1,14 +1,21 @@
 const express = require('express')
+const path = require('path')
 const app = express()
 
-// get the port from env variable
-const PORT = process.env.PORT || 5001
+// Health check endpoint for Render
+app.get('/health', (req, res) => {
+  res.send('ok')
+})
 
+// Serve static frontend files
 app.use(express.static('dist'))
 
-const start = async () => {
-  await app.listen(PORT)
-  console.log(`server started on port ${PORT}`)
-}
+// Fallback for React Router (important!)
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
+})
 
-start()
+const PORT = process.env.PORT || 10000
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+})
