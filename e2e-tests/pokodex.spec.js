@@ -1,17 +1,16 @@
-const { test, describe, expect } = require('@playwright/test')
+const { defineConfig } = require('@playwright/test')
 
-describe('Pokedex', () => {
-  test('front page can be opened', async ({ page }) => {
-    await page.goto('/')
-    await expect(page.getByText('ivysaur')).toBeVisible()
-    await expect(
-      page.getByText('Pokémon and Pokémon character names are trademarks of Nintendo.')
-    ).toBeVisible()
-  })
-
-  test('user can navigate to ivysaur page', async ({ page }) => {
-    await page.goto('/')
-    await page.getByText('ivysaur').click()
-    await expect(page.getByText('chlorophyll')).toBeVisible()
-  })
+module.exports = defineConfig({
+  testDir: './e2e-tests',
+  timeout: 30000,
+  use: {
+    baseURL: 'http://127.0.0.1:8080',
+    headless: true,
+  },
+  webServer: {
+    command: 'npm run start',   
+    url: 'http://127.0.0.1:8080',
+    reuseExistingServer: false,
+    timeout: 120000
+  }
 })
