@@ -10,7 +10,7 @@ app.get('/health', (req, res) => {
 // Serve static frontend files
 app.use(express.static('dist'))
 
-// React Router fallback (Express 5 safe version)
+// React Router fallback (Express 5 safe)
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'))
 })
