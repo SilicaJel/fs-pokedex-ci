@@ -2,12 +2,12 @@ const express = require('express')
 const path = require('path')
 const app = express()
 
-// Health check endpoint for Render
+// Health check endpoint
 app.get('/health', (req, res) => {
   res.send('ok')
 })
 
-// Serve static frontend files
+// Serve static files
 app.use(express.static('dist'))
 
 // React Router fallback (Express 5 safe)
