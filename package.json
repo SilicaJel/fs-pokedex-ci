@@ -6,6 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode development --port 8080 --hot false --open false",
     "test": "jest",
+    "test:watch": "jest --watch",
     "eslint": "eslint . --ext .js,.jsx",
     "build": "webpack --mode production",
     "test:e2e": "playwright test"
@@ -28,10 +29,9 @@
     "babel-jest": "^30.3.0",
     "babel-loader": "^10.1.1",
     "css-loader": "^7.1.4",
-    "eslint": "^9.39.4",
-    "eslint-plugin-jest": "^29.15.0",
-    "eslint-plugin-react": "^7.37.5",
-    "globals": "^17.5.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-jest": "^28.6.0",
+    "eslint-plugin-react": "^7.34.3",
     "history": "^5.3.0",
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.6",

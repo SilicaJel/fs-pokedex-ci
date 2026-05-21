@@ -1,4 +1,4 @@
-const { defineConfig, devices } = require('@playwright/test');
+const { defineConfig, devices } = require('@playwright/test')
 
 module.exports = defineConfig({
   testDir: './e2e-tests',
@@ -29,4 +29,4 @@ module.exports = defineConfig({
       use: { ...devices['Desktop Chromium'] },
     },
   ],
-});
+})
