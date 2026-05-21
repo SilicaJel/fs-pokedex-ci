@@ -36,3 +36,13 @@ jobs:
       
     - name: Build application
       run: npm run build
+      
+    - name: Deploy to production
+      if: ${{ github.event_name == 'push' }}  # Only runs on push to main
+      run: |
+        echo "Deploying to production..."
+        # Add your actual deployment commands here
+        # For example:
+        # npm run deploy
+        # or
+        # ./deploy.sh
